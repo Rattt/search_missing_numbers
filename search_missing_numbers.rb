@@ -24,27 +24,35 @@ class ArrFinderMissingNumbers
 
   def find_missing_group_number(index_left_border = (@length/2)+1, index_right_border = @length-1, suspicion=0)
     if @array_arg[index_left_border]==index_left_border+1+@count_found_numbers
-      if index_right_border-index_left_border>10
-        self.find_missing_group_number(index_left_border+(index_right_border-index_left_border)/2,index_right_border,suspicion)
-      else
-        while index_left_border < index_right_border  do
-          index_left_border +=1
-          found_now=0
-          while @array_arg[index_left_border-1]+1+found_now!=@array_arg[index_left_border]
-            @array_found.push(@array_arg[index_left_border-1]+1+found_now)
-            @count_found_numbers+=1
-            suspicion-=1
-            found_now+=1
-            if suspicion == 0
-              break
-            end
+      self.find_right_side(index_left_border,index_right_border,suspicion)
+    else
+      self.shift_left_side(index_left_border,index_right_border)
+    end
+  end
+
+  def find_right_side(index_left_border,index_right_border,suspicion)
+    if index_right_border-index_left_border>10
+      self.find_missing_group_number(index_left_border+(index_right_border-index_left_border)/2,index_right_border,suspicion)
+    else
+      while index_left_border < index_right_border  do
+        index_left_border +=1
+        found_now=0
+        while @array_arg[index_left_border-1]+1+found_now!=@array_arg[index_left_border]
+          @array_found.push(@array_arg[index_left_border-1]+1+found_now)
+          @count_found_numbers+=1
+          suspicion-=1
+          found_now+=1
+          if suspicion == 0
+            break
           end
         end
       end
-    else
-      suspicion=@array_arg[index_left_border]-index_left_border+1
-      self.find_missing_group_number((index_left_border+1)/2,index_left_border,suspicion)
     end
+  end
+
+  def shift_left_side(index_left_border,index_right_border)
+    suspicion=@array_arg[index_left_border]-index_left_border+1
+    self.find_missing_group_number((index_left_border+1)/2,index_left_border,suspicion)
   end
 
   def get_report

@@ -28,6 +28,6 @@ ruby search_missing_numbers.rb
 
 
 ## Feature Requests & Bugs
-на почту: Genom-1990@yandex.ru
+на почту: genom1990@yahoo.com
 
 
